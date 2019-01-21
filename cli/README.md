@@ -41,7 +41,7 @@ The most common environment variables are:
 
 - `AWS_DEFAULT_REGION`- **Optional** The AWS region name, defaults to `us-east-1` ([more info](https://docs.aws.amazon.com/general/latest/gr/rande.html))
 - `AWS_DEFAULT_OUTPUT`- **Optional** The CLI's output output format, defaults to `json` ([more info](https://docs.aws.amazon.com/cli/latest/userguide/cli-environment.html))
-- `AWS_CONFIG_FILE` - **Optional** A path to an AWS config file, combined with [`$GITHUB_WORKSPACE`](https://developer.github.com/actions/creating-github-actions/accessing-the-runtime-environment/#environment-variables) this can reference files within the repo. For example `${GITHUB_WORKSPACE}/.aws/config` will use the file at `.aws/config` within the repository as the AWS config file. No default is provided ([more info](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html))
+- `AWS_CONFIG_FILE` - **Optional** A path to an AWS config file, combined with [`$GITHUB_WORKSPACE`](https://developer.github.com/actions/creating-github-actions/accessing-the-runtime-environment/#environment-variables) this can reference files within the repo. For example `${GITHUB_WORKSPACE}/.aws/config` will use the file at `.aws/config` within the repository as the AWS config file. **Do not commit .aws/credentials to your repo**, keep your secrets in the secrets api. No default is provided ([more info](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html))
 
 
 ## License
