@@ -14,7 +14,7 @@ workflow "Build and Deploy" {
 action "Deploy to EKS" {
   needs = ["Build and Push Containers"]
   uses = "actions/aws/kubectl@master"
-  args = ["kubectl apply -f config.yml"]
+  args = ["apply -f config.yml"]
   secrets = ["KUBE_CONFIG_DATA"]
 }
 
