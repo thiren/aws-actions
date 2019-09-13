@@ -6,9 +6,10 @@ This Action for [AWS](https://aws.amazon.com/) enables arbitrary actions for int
 
 An example workflow for creating and publishing to Simple Notification Service ([SNS](https://aws.amazon.com/sns/)) topic follows.
 
-The example illustrates a pattern for consuming a previous action's output using [`jq`](https://stedolan.github.io/jq/), made possible since each `aws` Action's output is captured by default as JSON in `$GITHUB_HOME/$GITHUB_ACTION.json`:
+The example illustrates a pattern for consuming a previous action's output using [`jq`](https://stedolan.github.io/jq/), made possible since each `aws` Action's output is captured by default as JSON in `$GITHUB_HOME/$GITHUB_ACTION.yml`:
 
-```on: push
+```
+on: push
 name: Publish to SNS topic
 jobs:
   topic:
