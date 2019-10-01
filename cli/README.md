@@ -6,33 +6,26 @@ This Action for [AWS](https://aws.amazon.com/) enables arbitrary actions for int
 
 An example workflow for creating and publishing to Simple Notification Service ([SNS](https://aws.amazon.com/sns/)) topic follows.
 
-The example illustrates a pattern for consuming a previous action's output using [`jq`](https://stedolan.github.io/jq/), made possible since each `aws` Action's output is captured by default as JSON in `$GITHUB_HOME/$GITHUB_ACTION.yml`:
+The example illustrates a pattern for consuming a previous action's output using [`jq`](https://stedolan.github.io/jq/), made possible since each `aws` Action's output is captured by default as JSON in `$GITHUB_HOME/$GITHUB_ACTION.json`:
 
-```
-on: push
-name: Publish to SNS topic
-jobs:
-  topic:
-    name: Topic
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@master
-    - name: Topic
-      uses: actions/aws/cli@master
-      env:
-        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      with:
-        args: sns create-topic --name my-topic
-    - name: Publish
-      uses: actions/aws/cli@master
-      env:
-        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      with:
-        args: sns publish --topic-arn `jq .TopicArn /github/home/Topic.json --raw-output`
-          --subject "[${{ github.repository }}] Code was pushed to ${{ github.ref
-          }}" --message file://${{ github.event_path }}
+```hcl
+workflow "Publish to SNS topic" {
+  on = "push"
+  resolves = ["Publish"]
+}
+
+action "Topic" {
+  uses = "actions/aws/cli@master"
+  args = "sns create-topic --name my-topic"
+  secrets = ["AWS_ACCESS_KEY_ID", "AWS_SECRET_ACCESS_KEY"]
+}
+
+action "Publish" {
+  needs = ["Topic"]
+  uses = "actions/aws/cli@master"
+  args = "sns publish --topic-arn `jq .TopicArn /github/home/Topic.json --raw-output` --subject \"[$GITHUB_REPOSITORY] Code was pushed to $GITHUB_REF\" --message file://$GITHUB_EVENT_PATH"
+  secrets = ["AWS_ACCESS_KEY_ID", "AWS_SECRET_ACCESS_KEY"]
+}
 ```
 
 ### Secrets
