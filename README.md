@@ -1,10 +1,7 @@
-# GitHub Actions for AWS
+# Deprecated
 
-This repository contains GitHub Actions for Amazon Web Services, for performing common tasks such as using EKS, as well as a generic cli for doing arbitrary actions with the AWS commandline client.
+This action has been deprecated in favor of https://github.com/aws-actions.  This repo has been archived and will be made private on 12/31/2019
 
-## Usage
-
-Usage information for individual commands can be found in their respective directories.
 
 ## License
 
