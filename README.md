@@ -1,6 +1,6 @@
 # Deprecated
 
-This action has been deprecated in favor of https://github.com/aws-actions.  This repo has been archived and will be made private on 12/31/2019
+This action has been deprecated in favor of https://github.com/aws-actions.
 
 
 ## License
